@@ -1,8 +1,10 @@
 package pl.zgorzalek.web_spy.user;
 
 import lombok.Data;
+import pl.zgorzalek.web_spy.role.Role;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,4 +20,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

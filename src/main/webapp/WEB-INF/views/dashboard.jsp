@@ -58,7 +58,6 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span> <spring:message code="dashboard.reports"/></span></a>
         </li>
-
         <sec:authorize access="hasRole('ADMIN')">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -76,8 +75,6 @@
                 </div>
             </li>
         </sec:authorize>
-
-
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
