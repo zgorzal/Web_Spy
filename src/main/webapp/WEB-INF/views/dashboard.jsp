@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="pl-PL">
 <head>
     <meta charset="utf-8">
@@ -134,7 +135,10 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal"><spring:message
                         code="app.cancel"/></button>
-                <a class="btn btn-primary" href="#"> <spring:message code="dashboard.logout"/></a>
+                <form action="<c:url value="/logout"/>" method="post">
+                    <input class="btn btn-primary" type="submit" value="<spring:message code="dashboard.logout"/>">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
             </div>
         </div>
     </div>
