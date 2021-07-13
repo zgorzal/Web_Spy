@@ -1,11 +1,13 @@
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<html lang="pl-PL">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Web Spy!</title>
+    <title><spring:message code="app.title"/></title>
     <link href="../../theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -18,54 +20,54 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Web Spy!</div>
+            <div class="sidebar-brand-text mx-3"><spring:message code="app.title"/></div>
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Ekran główny</span></a>
+                <span><spring:message code="dashboard.main_view"/></span></a>
         </li>
         <hr class="sidebar-divider">
         <div class="sidebar-heading">
-            Skróty
+            <spring:message code="dashboard.shortcuts"/>
         </div>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="false"
                aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Strony</span>
+                <span><spring:message code="dashboard.pages"/></span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Akcje</h6>
-                    <a class="collapse-item" href="#">Dodanie strony</a>
-                    <a class="collapse-item" href="#">Zbieranie danych</a>
+                    <h6 class="collapse-header"><spring:message code="dashboard.actions"/></h6>
+                    <a class="collapse-item" href="#"> <spring:message code="dashboard.add_page"/></a>
+                    <a class="collapse-item" href="#"> <spring:message code="dashboard.collecting_data"/></a>
                     <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Zebrane dane</h6>
-                    <a class="collapse-item" href="#">Lista stron</a>
+                    <h6 class="collapse-header"><spring:message code="dashboard.collected_data"/></h6>
+                    <a class="collapse-item" href="#"> <spring:message code="dashboard.page_list"/></a>
                 </div>
             </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Raporty</span></a>
+                <span> <spring:message code="dashboard.reports"/></span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i>
-                <span>Panel Administratora</span>
+                <span> <spring:message code="dashboard.admin_panel"/></span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Akcja</h6>
-                    <a class="collapse-item" href="#">Lista użytkowników</a>
-                    <a class="collapse-item" href="#">Dodaj użytkownika</a>
+                    <h6 class="collapse-header"><spring:message code="dashboard.action"/></h6>
+                    <a class="collapse-item" href="#"> <spring:message code="dashboard.users_list"/></a>
+                    <a class="collapse-item" href="#"> <spring:message code="dashboard.add_user"/></a>
                 </div>
             </div>
         </li>
@@ -85,7 +87,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Piotr Zgorzałek</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Imie Nazwisko</span>
                             <img class="img-profile rounded-circle"
                                  src="../../theme/img/undraw_profile.svg">
                         </a>
@@ -93,16 +95,16 @@
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Moje konto
+                                <spring:message code="dashboard.my_account"/>
                             </a>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Ustawienia
+                                <spring:message code="dashboard.settings"/>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Wyloguj
+                                <spring:message code="dashboard.logout"/>
                             </a>
                         </div>
                     </li>
@@ -112,7 +114,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Web Spy by Zgorzal</span>
+                    <span> <spring:message code="app.footer_text"/></span>
                 </div>
             </div>
         </footer>
@@ -126,15 +128,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Na pewno?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+                <h5 class="modal-title" id="exampleModalLabel"><spring:message code="logout.sure"/></h5>
             </div>
-            <div class="modal-body">Kliknij "Wyloguj" jeżeli chcesz wyjść z aplikacji</div>
+            <div class="modal-body"><spring:message code="logout.message"/></div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                <a class="btn btn-primary" href="#">Wyloguj</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal"><spring:message
+                        code="app.cancel"/></button>
+                <a class="btn btn-primary" href="#"> <spring:message code="dashboard.logout"/></a>
             </div>
         </div>
     </div>
