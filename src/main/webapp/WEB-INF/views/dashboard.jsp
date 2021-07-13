@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="pl-PL">
 <head>
     <meta charset="utf-8">
@@ -57,21 +58,26 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span> <spring:message code="dashboard.reports"/></span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span> <spring:message code="dashboard.admin_panel"/></span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><spring:message code="dashboard.action"/></h6>
-                    <a class="collapse-item" href="#"> <spring:message code="dashboard.users_list"/></a>
-                    <a class="collapse-item" href="#"> <spring:message code="dashboard.add_user"/></a>
+
+        <sec:authorize access="hasRole('ADMIN')">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span> <spring:message code="dashboard.admin_panel"/></span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><spring:message code="dashboard.action"/></h6>
+                        <a class="collapse-item" href="#"> <spring:message code="dashboard.users_list"/></a>
+                        <a class="collapse-item" href="#"> <spring:message code="dashboard.add_user"/></a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        </sec:authorize>
+
+
         <hr class="sidebar-divider d-none d-md-block">
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
