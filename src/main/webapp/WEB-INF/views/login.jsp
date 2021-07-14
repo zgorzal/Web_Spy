@@ -25,13 +25,13 @@
                 </div>
                 <form class="user" method="post" action="/login">
                     <div class="form-group">
-                        <input type="text" id="username" name="username" class="form-control form-control-user"
-                               placeholder="<spring:message code="login.enter_email"/>"
+                        <input type="email" id="username" name="username" class="form-control form-control-user"
+                               placeholder="<spring:message code="app.email"/>"
                                required="" autofocus="">
                     </div>
                     <div class="form-group">
                         <input type="password" id="password" name="password" class="form-control form-control-user"
-                               placeholder="<spring:message code="login.enter_password"/>"
+                               placeholder="<spring:message code="app.password"/>"
                                required="">
                     </div>
                     <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
@@ -40,10 +40,10 @@
                     <hr>
                 </form>
                 <div class="text-center">
-                    <a class="small" href="#"><spring:message code="login.forgot_password"/></a>
+                    <a class="small" href="#"><spring:message code="app.forgot_password"/></a>
                 </div>
                 <div class="text-center">
-                    <a class="small" href="#"><spring:message code="login.create_account"/></a>
+                    <a class="small" href="../register"><spring:message code="app.create_account"/></a>
                 </div>
             </div>
         </div>

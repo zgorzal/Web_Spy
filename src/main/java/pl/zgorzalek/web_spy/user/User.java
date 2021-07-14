@@ -4,6 +4,9 @@ import lombok.Data;
 import pl.zgorzalek.web_spy.role.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -16,9 +19,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String firstName;
+
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String lastName;
+
+    @NotBlank
+    @Email
+    @Size(max = 50)
+    @Column(unique = true)
     private String email;
+
+    @NotBlank
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
