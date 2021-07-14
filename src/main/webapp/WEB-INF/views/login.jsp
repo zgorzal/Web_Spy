@@ -35,6 +35,7 @@
                                required="">
                     </div>
                     <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+                    <span class="alert-warning">${errorInput}</span>
                     <button class="btn btn-primary btn-user btn-block" type="submit"><spring:message
                             code="login.login"/></button>
                     <hr>

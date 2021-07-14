@@ -11,6 +11,7 @@ import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +19,11 @@ public class LoginController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        Map<String, String[]> param = request.getParameterMap();
+        if (param.containsKey("error")) {
+            request.setAttribute("errorInput", "Błędny email lub hasło");
+        }
         return "login";
     }
 
