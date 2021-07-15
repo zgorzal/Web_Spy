@@ -139,15 +139,6 @@
                                         </label>
                                     </div>
                                     <div class="row-cols-1">
-                                        <label>
-                                            <form:input path="email" type="email" class="form-control"
-                                                        placeholder="Email"/>
-                                            <form:errors path="email" class="alert-warning"/>
-                                        </label>
-                                    </div>
-                                    <form:hidden path="password"/>
-                                    <form:hidden path="id"/>
-                                    <div class="row-cols-1">
                                         <input type="submit" class="btn btn-success text" value="Zatwierdz zmiany">
                                     </div>
                                 </form:form>

@@ -33,10 +33,16 @@ public class UserController {
 
     @PostMapping("/settings")
     public String settings(@Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
+        if (result.hasFieldErrors("firstName")
+                || result.hasFieldErrors("lastName")) {
             return "settings";
         }
-        userService.update(user);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        User userAuth = userService.findByEmail(email);
+        userAuth.setFirstName(user.getFirstName());
+        userAuth.setLastName(user.getLastName());
+        userService.update(userAuth);
         return "redirect:/user/settings";
     }
 }
