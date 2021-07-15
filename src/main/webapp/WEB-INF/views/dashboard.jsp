@@ -26,7 +26,7 @@
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item">
-            <a class="nav-link" href="../">
+            <a class="nav-link" href="http://localhost:8080/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span><spring:message code="dashboard.main_view"/></span></a>
         </li>
@@ -91,7 +91,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${firstName} ${lastName}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.firstName} ${user.lastName}</span>
                             <img class="img-profile rounded-circle"
                                  src="../../theme/img/undraw_profile.svg">
                         </a>

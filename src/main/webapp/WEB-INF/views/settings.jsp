@@ -27,7 +27,7 @@
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item">
-            <a class="nav-link" href="../">
+            <a class="nav-link" href="http://localhost:8080/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span><spring:message code="dashboard.main_view"/></span></a>
         </li>
@@ -92,7 +92,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${firstName} ${lastName}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.firstName} ${user.lastName}</span>
                             <img class="img-profile rounded-circle"
                                  src="../../theme/img/undraw_profile.svg">
                         </a>
@@ -151,26 +151,29 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Zmiana hasła</h6>
                             </div>
                             <div class="card-body">
-                                <div class="row-cols-1">
-                                    <label>
-                                        <input type="password" class="form-control" placeholder="Stare hasło">
-                                    </label>
-                                </div>
-                                <div class="row-cols-1">
-                                    <label>
-                                        <input type="password" class="form-control" placeholder="Nowe hasło">
-                                    </label>
-                                </div>
-                                <div class="row-cols-1">
-                                    <label>
-                                        <input type="password" class="form-control" placeholder="Powtórz nowe hasło">
-                                    </label>
-                                </div>
-                                <div class="row-cols-1">
-                                    <a href="#" class="btn btn-warning btn-icon-split">
-                                        <span class="text">Zmień hasło</span>
-                                    </a>
-                                </div>
+                                <form:form method="post" modelAttribute="user" action="/user/settings/password">
+                                    <div class="row-cols-1">
+                                        <label>
+                                            <input type="password" name="oldPassword" class="form-control"
+                                                   placeholder="Stare hasło">
+                                        </label>
+                                    </div>
+                                    <div class="row-cols-1">
+                                        <label>
+                                            <input type="password" name="newPassword" class="form-control"
+                                                   placeholder="Nowe hasło">
+                                        </label>
+                                    </div>
+                                    <div class="row-cols-1">
+                                        <label>
+                                            <input type="password" name="repeatNewPassword" class="form-control"
+                                                   placeholder="Powtórz nowe hasło">
+                                        </label>
+                                    </div>
+                                    <div class="row-cols-1">
+                                        <input type="submit" class="btn btn-warning text" value="Zmień hało">
+                                    </div>
+                                </form:form>
                             </div>
                         </div>
                     </div>

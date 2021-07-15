@@ -3,10 +3,11 @@ package pl.zgorzalek.web_spy.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.zgorzalek.web_spy.user.service.UserService;
@@ -19,30 +20,38 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    @GetMapping("/settings")
-    public String settings(Model model, HttpServletRequest request) {
+    @ModelAttribute("user")
+    public User getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        User user = userService.findByEmail(email);
-        request.setAttribute("firstName", user.getFirstName());
-        request.setAttribute("lastName", user.getLastName());
-        model.addAttribute("user", user);
+        return userService.findByEmail(email);
+    }
+
+    @GetMapping("/settings")
+    public String settings() {
         return "settings";
     }
 
     @PostMapping("/settings")
     public String settings(@Valid User user, BindingResult result) {
-        if (result.hasFieldErrors("firstName")
-                || result.hasFieldErrors("lastName")) {
+        if (result.hasErrors()) {
             return "settings";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        User userAuth = userService.findByEmail(email);
-        userAuth.setFirstName(user.getFirstName());
-        userAuth.setLastName(user.getLastName());
-        userService.update(userAuth);
+        userService.update(user);
+        return "redirect:/user/settings";
+    }
+
+    @PostMapping("/settings/password")
+    public String changePassword(@Valid User user, BindingResult result, HttpServletRequest request) {
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        String repeatNewPassword = request.getParameter("repeatNewPassword");
+        if (passwordEncoder.matches(oldPassword, user.getPassword())
+                && newPassword.equals(repeatNewPassword)) {
+            userService.updatePassword(user, newPassword);
+        }
         return "redirect:/user/settings";
     }
 }
