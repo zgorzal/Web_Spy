@@ -31,13 +31,13 @@ public class UserController {
 
     @GetMapping("/settings")
     public String settings() {
-        return "settings";
+        return "app/settings";
     }
 
     @PostMapping("/settings")
     public String settings(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
-            return "settings";
+            return "app/settings";
         }
         userService.update(user);
         return "redirect:/user/settings";
@@ -57,6 +57,6 @@ public class UserController {
 
     @RequestMapping("/account")
     public String account() {
-        return "account";
+        return "app/account";
     }
 }

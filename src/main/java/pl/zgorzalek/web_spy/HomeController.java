@@ -24,6 +24,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String loginOn() {
-        return "dashboard";
+        return "app/dashboard";
     }
 }
