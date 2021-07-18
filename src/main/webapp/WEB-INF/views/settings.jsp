@@ -120,7 +120,8 @@
                     <div class="col-lg-5 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Zmiana danych</h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><spring:message
+                                        code="settings.change_data"/></h6>
                             </div>
                             <div class="card-body">
                                 <form:form method="post" modelAttribute="user">
@@ -139,7 +140,15 @@
                                         </label>
                                     </div>
                                     <div class="row-cols-1">
-                                        <input type="submit" class="btn btn-success text" value="Zatwierdz zmiany">
+                                        <label>
+                                            <form:input path="email" type="email" class="form-control"
+                                                        placeholder="Email"/>
+                                            <form:errors path="email" class="alert-warning"/>
+                                        </label>
+                                    </div>
+                                    <div class="row-cols-1">
+                                        <input type="submit" class="btn btn-success text"
+                                               value="<spring:message code="settings.change_approves"/>">
                                     </div>
                                 </form:form>
                             </div>
@@ -148,7 +157,8 @@
                     <div class="col-lg-5 mb-4">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Zmiana hasła</h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><spring:message
+                                        code="settings.change_password"/></h6>
                             </div>
                             <div class="card-body">
                                 <form:form method="post" modelAttribute="user" action="/user/settings/password">
@@ -171,7 +181,8 @@
                                         </label>
                                     </div>
                                     <div class="row-cols-1">
-                                        <input type="submit" class="btn btn-warning text" value="Zmień hało">
+                                        <input type="submit" class="btn btn-warning text"
+                                               value="<spring:message code="settings.change_password_approves"/>">
                                     </div>
                                 </form:form>
                             </div>
