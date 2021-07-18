@@ -54,4 +54,9 @@ public class UserController {
         }
         return "redirect:/user/settings";
     }
+
+    @RequestMapping("/account")
+    public String account() {
+        return "account";
+    }
 }
