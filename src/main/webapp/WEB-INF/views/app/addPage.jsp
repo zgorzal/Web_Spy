@@ -1,10 +1,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/views/includes/header.jsp"/>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Dodaj stronę</h6>
+        <h6 class="m-0 font-weight-bold text-primary"><spring:message code="addPage.add_page"/></h6>
     </div>
     <div class="card-body">
         <form:form method="post" modelAttribute="page">
@@ -25,7 +26,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-success text"
-                       value="Zapisz">
+                       value="<spring:message code="app.save"/>">
             </div>
         </form:form>
     </div>

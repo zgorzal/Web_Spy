@@ -5,11 +5,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -30,5 +34,14 @@ public class PageController {
     public String add(Model model) {
         model.addAttribute("page", new Page());
         return "app/addPage";
+    }
+
+    @PostMapping("/add")
+    public String add(@Valid Page page, BindingResult result) {
+        if (result.hasErrors()) {
+            return "app/addPage";
+        }
+        pageService.add(page);
+        return "redirect:/";
     }
 }
