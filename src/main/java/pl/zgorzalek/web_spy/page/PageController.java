@@ -14,6 +14,7 @@ import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -41,7 +42,14 @@ public class PageController {
         if (result.hasErrors()) {
             return "app/addPage";
         }
-        pageService.add(page);
+        pageService.add(page, getUser());
         return "redirect:/";
+    }
+
+    @GetMapping("")
+    public String view(Model model) {
+        List<Page> pages = pageService.getAllByUser(getUser());
+        model.addAttribute("pages", pages);
+        return "app/selectPage";
     }
 }

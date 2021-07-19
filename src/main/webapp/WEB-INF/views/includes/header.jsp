@@ -45,7 +45,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><spring:message code="dashboard.actions"/></h6>
                     <a class="collapse-item" href="../page/add"> <spring:message code="dashboard.add_page"/></a>
-                    <a class="collapse-item" href="#"> <spring:message code="dashboard.collecting_data"/></a>
+                    <a class="collapse-item" href="../page"> <spring:message code="dashboard.collecting_data"/></a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header"><spring:message code="dashboard.collected_data"/></h6>
                     <a class="collapse-item" href="#"> <spring:message code="dashboard.page_list"/></a>

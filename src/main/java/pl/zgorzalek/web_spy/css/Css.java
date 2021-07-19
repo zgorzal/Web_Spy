@@ -1,12 +1,10 @@
 package pl.zgorzalek.web_spy.css;
 
 import lombok.Data;
-import pl.zgorzalek.web_spy.record.Record;
+import pl.zgorzalek.web_spy.page.Page;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +19,6 @@ public class Css {
     @NotBlank
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "id_css")
-    private List<Record> records = new ArrayList<>();
+    @ManyToOne
+    private Page page;
 }

@@ -1,13 +1,11 @@
 package pl.zgorzalek.web_spy.page;
 
 import lombok.Data;
-import pl.zgorzalek.web_spy.css.Css;
+import pl.zgorzalek.web_spy.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -32,7 +30,6 @@ public class Page {
     private LocalDateTime dateAdded;
     private LocalDateTime dateUpdate;
 
-    @OneToMany
-    @JoinColumn(name = "id_page")
-    private List<Css> css = new ArrayList<>();
+    @ManyToOne
+    private User user;
 }

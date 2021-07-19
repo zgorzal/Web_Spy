@@ -1,6 +1,8 @@
 package pl.zgorzalek.web_spy.record;
 
 import lombok.Data;
+import pl.zgorzalek.web_spy.css.Css;
+
 
 import javax.persistence.*;
 
@@ -15,4 +17,7 @@ public class Record {
     private Long id;
 
     private String value;
+
+    @ManyToOne
+    private Css css;
 }
