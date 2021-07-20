@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
         <c:forEach items="${pages}" var="page">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/page/${page.id}">
                 <i class="fas fa-sm fa-fw mr-2 text-gray-400"></i>
                 <p>${page.name}</p>
             </a>

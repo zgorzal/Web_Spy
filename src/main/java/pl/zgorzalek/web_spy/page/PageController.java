@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
 
@@ -47,9 +44,15 @@ public class PageController {
     }
 
     @GetMapping("")
-    public String view(Model model) {
+    public String viewAll(Model model) {
         List<Page> pages = pageService.getAllByUser(getUser());
         model.addAttribute("pages", pages);
         return "app/selectPage";
+    }
+
+    @GetMapping("/{id}")
+    public String viewPage(@PathVariable Long id, Model model) {
+        model.addAttribute("page", pageService.findById(id));
+        return "app/page";
     }
 }

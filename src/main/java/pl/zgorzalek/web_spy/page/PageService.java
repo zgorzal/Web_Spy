@@ -24,4 +24,8 @@ public class PageService {
     public List<Page> getAllByUser(User user) {
         return pageRepository.findPagesByUser(user);
     }
+
+    public Page findById(Long id) {
+        return pageRepository.findById(id).orElse(null);
+    }
 }
