@@ -10,4 +10,12 @@ import javax.transaction.Transactional;
 @Transactional
 public class CssService {
     private final CssRepository cssRepository;
+
+    public void add(Css css) {
+        cssRepository.save(css);
+    }
+
+    public Css findByName(String name) {
+        return cssRepository.findFirstByName(name);
+    }
 }

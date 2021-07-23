@@ -8,4 +8,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface CssRepository extends JpaRepository<Css, Long> {
+    Css findFirstByName(String name);
 }

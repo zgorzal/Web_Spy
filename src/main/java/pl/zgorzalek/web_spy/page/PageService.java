@@ -6,7 +6,7 @@ import pl.zgorzalek.web_spy.user.User;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.List;import pl.zgorzalek.web_spy.user.User;
 
 @Service
 @RequiredArgsConstructor
