@@ -22,15 +22,15 @@ public class UserController {
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @ModelAttribute("user")
+    @ModelAttribute("user") //zmiana nazwy klucza
     public User getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        return userService.findByEmail(email);
+        return userService.findByEmail(email); // poprawic
     }
 
     @GetMapping("/settings")
-    public String settings() {
+    public String settings() { // dodanie usera zalogowanego pod kluczem user
         return "app/settings";
     }
 
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/settings/password")
-    public String changePassword(@Valid User user, BindingResult result, HttpServletRequest request) {
+    public String changePassword(@Valid User user, BindingResult result, HttpServletRequest request) { // dwa dto
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String repeatNewPassword = request.getParameter("repeatNewPassword");
