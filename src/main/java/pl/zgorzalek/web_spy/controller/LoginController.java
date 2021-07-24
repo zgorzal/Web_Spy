@@ -1,4 +1,4 @@
-package pl.zgorzalek.web_spy;
+package pl.zgorzalek.web_spy.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

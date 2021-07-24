@@ -15,6 +15,7 @@ import pl.zgorzalek.web_spy.value.ValueService;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,6 +54,14 @@ public class RecordService {
             Document document = Jsoup.connect(page.getUrl()).get();
             Element body = document.body();
             List<Element> parentElements = body.getElementsByClass(cssClass);
+            Element child = parentElements.get(0);
+            List<Element> elementsToCheck = child.getAllElements();
+            List<String> cssCollect = new ArrayList<>();
+            for (Element element : elementsToCheck) {
+                if (!element.className().isEmpty()) {
+                    cssCollect.add(element.className());
+                }
+            }
             for (Element parentElement : parentElements) {
                 Record record = new Record();
                 record.setCss(css);
@@ -60,11 +69,13 @@ public class RecordService {
                 add(record);
                 List<Element> childrenElements = parentElement.getAllElements();
                 for (Element childElement : childrenElements) {
-                    if (!childElement.ownText().isEmpty()) {
-                        Value value = new Value();
-                        value.setRecord(record);
-                        value.setValue(childElement.ownText());
-                        valueService.add(value);
+                    for (String cssCheck : cssCollect) {
+                        if (childElement.className().equals(cssCheck)) {
+                            Value value = new Value();
+                            value.setRecord(record);
+                            value.setValue(childElement.text());
+                            valueService.add(value);
+                        }
                     }
                 }
             }

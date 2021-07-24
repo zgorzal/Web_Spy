@@ -15,6 +15,7 @@ public class Value {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 1000)
     private String value;
 
     @ManyToOne
