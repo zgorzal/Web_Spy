@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.zgorzalek.web_spy.css.CssService;
 import pl.zgorzalek.web_spy.record.RecordService;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
@@ -63,5 +64,12 @@ public class PageController {
         model.addAttribute("page", page);
         model.addAttribute("records", recordService.getRecordSummary(id, cssClass));
         return "app/dataSummary";
+    }
+
+    @GetMapping("/list")
+    public String viewPageList(Model model) {
+        List<Page> pages = pageService.getAllByUser(getUser());
+        model.addAttribute("pages", pages);
+        return "app/pageList";
     }
 }

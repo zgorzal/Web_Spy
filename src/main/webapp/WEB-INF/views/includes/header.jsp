@@ -48,7 +48,7 @@
                     <a class="collapse-item" href="../page"> <spring:message code="dashboard.collecting_data"/></a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header"><spring:message code="dashboard.collected_data"/></h6>
-                    <a class="collapse-item" href="#"> <spring:message code="dashboard.page_list"/></a>
+                    <a class="collapse-item" href="../page/list"> <spring:message code="dashboard.page_list"/></a>
                 </div>
             </div>
         </li>
