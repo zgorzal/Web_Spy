@@ -42,6 +42,7 @@ public class RecordService {
 
     public List<Record> getRecordSummary(Long pageId, String cssClass) {
         Page page = pageService.findById(pageId);
+        pageService.add(page);
         Css css = cssService.findByName(cssClass);
         if (css == null) {
             css = new Css();

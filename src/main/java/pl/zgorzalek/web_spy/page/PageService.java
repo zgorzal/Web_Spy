@@ -21,10 +21,8 @@ import java.util.Map;
 public class PageService {
     private final PageRepository pageRepository;
 
-    public void add(Page page, User user) {
-        page.setDateAdded(LocalDateTime.now());
+    public void add(Page page) {
         page.setDateUpdate(LocalDateTime.now());
-        page.setUser(user);
         pageRepository.save(page);
     }
 

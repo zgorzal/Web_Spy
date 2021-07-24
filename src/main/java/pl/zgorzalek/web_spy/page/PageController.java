@@ -13,6 +13,7 @@ import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -41,7 +42,9 @@ public class PageController {
         if (result.hasErrors()) {
             return "app/addPage";
         }
-        pageService.add(page, getUser());
+        page.setDateAdded(LocalDateTime.now());
+        page.setUser(getUser());
+        pageService.add(page);
         return "redirect:/";
     }
 
