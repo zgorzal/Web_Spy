@@ -1,6 +1,7 @@
 package pl.zgorzalek.web_spy.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,8 @@ public class UserController {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/settings")
-    public String settings() { // dodanie usera zalogowanego pod kluczem user
+    public String settings(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        model.addAttribute("user", currentUser.getUser());
         return "app/settings";
     }
 
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/settings/password")
-    public String changePassword(@Valid User user, BindingResult result, HttpServletRequest request) { // dwa dto
+    public String changePassword(@Valid User user, BindingResult result, HttpServletRequest request) {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String repeatNewPassword = request.getParameter("repeatNewPassword");
