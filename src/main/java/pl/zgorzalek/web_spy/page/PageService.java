@@ -70,7 +70,7 @@ public class PageService {
                     "           <div class=\"row\">\n" +
                     "               " + sb.toString() + "\n" +
                     "           </div>\n" +
-                    "<a href=\"../page\" class=\"btn btn-warning btn-icon-split\">\n" +
+                    "<a href=\"/page\" class=\"btn btn-warning btn-icon-split\">\n" +
                     "         <span class=\"icon text-white-50\">\n" +
                     "                   <i class=\"fas fa-exclamation-triangle\"></i>\n" +
                     "        </span>\n" +

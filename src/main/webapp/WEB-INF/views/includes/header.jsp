@@ -44,16 +44,16 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><spring:message code="dashboard.actions"/></h6>
-                    <a class="collapse-item" href="../page/add"> <spring:message code="dashboard.add_page"/></a>
-                    <a class="collapse-item" href="../page"> <spring:message code="dashboard.collecting_data"/></a>
+                    <a class="collapse-item" href="/page/add"> <spring:message code="dashboard.add_page"/></a>
+                    <a class="collapse-item" href="/page"> <spring:message code="dashboard.collecting_data"/></a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header"><spring:message code="dashboard.collected_data"/></h6>
-                    <a class="collapse-item" href="../page/list"> <spring:message code="dashboard.page_list"/></a>
+                    <a class="collapse-item" href="/page/list"> <spring:message code="dashboard.page_list"/></a>
                 </div>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="../page/reports">
+            <a class="nav-link" href="/page/reports">
                 <i class="fas fa-fw fa-table"></i>
                 <span> <spring:message code="dashboard.reports"/></span></a>
         </li>
