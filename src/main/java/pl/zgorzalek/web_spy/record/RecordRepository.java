@@ -14,4 +14,9 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     @Query(value = "SELECT MAX(download_id) FROM records", nativeQuery = true)
     int findLastDownloadId();
+
+    @Query(value = "SELECT DISTINCT download_id FROM records WHERE css_id = ?1", nativeQuery = true)
+    List<Integer> findDownloadIdByCss(Long css);
+
+    Record findFirstByDownloadId(Integer downloadId);
 }

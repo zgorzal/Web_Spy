@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.zgorzalek.web_spy.css.Css;
 import pl.zgorzalek.web_spy.css.CssService;
+import pl.zgorzalek.web_spy.record.Record;
 import pl.zgorzalek.web_spy.record.RecordService;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.service.UserService;
@@ -23,6 +25,7 @@ public class PageController {
     private final PageService pageService;
     private final UserService userService;
     private final RecordService recordService;
+    private final CssService cssService;
 
     @ModelAttribute("user")
     public User getUser() {
@@ -64,7 +67,7 @@ public class PageController {
     @GetMapping("/{id}/{cssClass}")
     public String viewDataSummary(@PathVariable Long id, @PathVariable String cssClass, Model model) {
         Page page = pageService.findById(id);
-        model.addAttribute("page", page);
+        model.addAttribute("title", page.getName());
         model.addAttribute("records", recordService.getRecordSummary(id, cssClass));
         return "app/dataSummary";
     }
@@ -74,5 +77,35 @@ public class PageController {
         List<Page> pages = pageService.getAllByUser(getUser());
         model.addAttribute("pages", pages);
         return "app/pageList";
+    }
+
+    @GetMapping("/reports")
+    public String viewReports(Model model) {
+        List<Page> pages = pageService.getAllByUser(getUser());
+        for (Page page : pages) {
+            page.setCss(cssService.findByPage(page));
+        }
+        model.addAttribute("pages", pages);
+        return "app/reportsList";
+    }
+
+    @GetMapping("/reports/{cssClass}")
+    public String viewReportsSummaryList(@PathVariable String cssClass, Model model) {
+        model.addAttribute("cssClass", cssClass);
+        Css css = cssService.findByName(cssClass);
+        List<Integer> downloadIdList = recordService.getDownloadIdByCssId(css.getId());
+        List<Record> records = new ArrayList<>();
+        for (Integer downloadId : downloadIdList) {
+            records.add(recordService.getFirstByDownloadId(downloadId));
+        }
+        model.addAttribute("records", records);
+        return "app/dataSummaryList";
+    }
+
+    @GetMapping("/report/{downloadId}")
+    public String viewReportSummary(@PathVariable int downloadId, Model model) {
+        model.addAttribute("title", "Raport");
+        model.addAttribute("records", recordService.viewRecordSummary(downloadId));
+        return "app/dataSummary";
     }
 }

@@ -89,4 +89,20 @@ public class RecordService {
         }
         return records;
     }
+
+    public List<Integer> getDownloadIdByCssId(Long cssId) {
+        return recordRepository.findDownloadIdByCss(cssId);
+    }
+
+    public Record getFirstByDownloadId(Integer downloadId) {
+        return recordRepository.findFirstByDownloadId(downloadId);
+    }
+
+    public List<Record> viewRecordSummary(int downloadId){
+        List<Record> records = getAllByDownloadId(downloadId);
+        for (Record record : records) {
+            record.setValues(valueService.getAllByRecord(record));
+        }
+        return records;
+    }
 }

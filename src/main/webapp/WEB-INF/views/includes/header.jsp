@@ -53,7 +53,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../page/reports">
                 <i class="fas fa-fw fa-table"></i>
                 <span> <spring:message code="dashboard.reports"/></span></a>
         </li>

@@ -1,11 +1,14 @@
 package pl.zgorzalek.web_spy.page;
 
 import lombok.Data;
+import pl.zgorzalek.web_spy.css.Css;
 import pl.zgorzalek.web_spy.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,4 +35,7 @@ public class Page {
 
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "page")
+    private List<Css> css = new ArrayList<>();
 }
