@@ -15,13 +15,11 @@
         </sec:authorize>
     </div>
     <div class="card-body">
-        <p>Imię:</p>
-        <p>Nazwisko:</p>
-        <p>Email:</p>
-        <p>Data założenia konta:</p>
-        <p>Data ostatniego logowania:</p>
-        <p>Ilość zapisanych stron:</p>
-        <p>Ilość pobranych rekordów:</p>
+        <p>ID: <sec:authentication property="principal.user.id"/></p>
+        <p>Imię: <sec:authentication property="principal.user.firstName"/></p>
+        <p>Nazwisko: <sec:authentication property="principal.user.lastName"/></p>
+        <p>Email: <sec:authentication property="principal.user.email"/></p>
+        <p>Posiadane role: <sec:authentication property="authorities"/></p>
     </div>
 </div>
 
