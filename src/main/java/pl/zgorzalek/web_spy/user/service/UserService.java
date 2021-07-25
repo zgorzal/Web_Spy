@@ -11,6 +11,7 @@ import pl.zgorzalek.web_spy.user.UserRepository;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,10 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public void update(User user) {

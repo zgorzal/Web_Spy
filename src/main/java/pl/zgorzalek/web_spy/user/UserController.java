@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,5 +60,12 @@ public class UserController {
     @RequestMapping("/account")
     public String account() {
         return "app/account";
+    }
+
+    @GetMapping("/list")
+    public String userList(Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "app/admin/userList";
     }
 }
