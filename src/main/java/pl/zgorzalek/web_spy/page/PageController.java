@@ -1,8 +1,7 @@
 package pl.zgorzalek.web_spy.page;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +10,7 @@ import pl.zgorzalek.web_spy.css.Css;
 import pl.zgorzalek.web_spy.css.CssService;
 import pl.zgorzalek.web_spy.record.Record;
 import pl.zgorzalek.web_spy.record.RecordService;
-import pl.zgorzalek.web_spy.user.User;
-import pl.zgorzalek.web_spy.user.service.UserService;
+import pl.zgorzalek.web_spy.user.CurrentUser;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -23,16 +21,8 @@ import java.util.*;
 @RequestMapping("/page")
 public class PageController {
     private final PageService pageService;
-    private final UserService userService;
     private final RecordService recordService;
     private final CssService cssService;
-
-    @ModelAttribute("user")
-    public User getUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        return userService.findByEmail(email);
-    }
 
     @GetMapping("/add")
     public String add(Model model) {
@@ -41,19 +31,19 @@ public class PageController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid Page page, BindingResult result) {
+    public String add(@Valid Page page, BindingResult result, @AuthenticationPrincipal CurrentUser currentUser) {
         if (result.hasErrors()) {
             return "app/addPage";
         }
         page.setDateAdded(LocalDateTime.now());
-        page.setUser(getUser());
+        page.setUser(currentUser.getUser());
         pageService.add(page);
         return "redirect:/";
     }
 
     @GetMapping("")
-    public String viewAll(Model model) {
-        List<Page> pages = pageService.getAllByUser(getUser());
+    public String viewAll(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        List<Page> pages = pageService.getAllByUser(currentUser.getUser());
         model.addAttribute("pages", pages);
         return "app/selectPage";
     }
@@ -73,15 +63,15 @@ public class PageController {
     }
 
     @GetMapping("/list")
-    public String viewPageList(Model model) {
-        List<Page> pages = pageService.getAllByUser(getUser());
+    public String viewPageList(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        List<Page> pages = pageService.getAllByUser(currentUser.getUser());
         model.addAttribute("pages", pages);
         return "app/pageList";
     }
 
     @GetMapping("/reports")
-    public String viewReports(Model model) {
-        List<Page> pages = pageService.getAllByUser(getUser());
+    public String viewReports(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        List<Page> pages = pageService.getAllByUser(currentUser.getUser());
         for (Page page : pages) {
             page.setCss(cssService.findByPage(page));
         }
