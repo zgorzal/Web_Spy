@@ -34,17 +34,8 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult result, HttpServletRequest request) {
-        String email = request.getParameter("email");
-        User checkUser = userService.findByEmail(email);
-        String repeatPassword = request.getParameter("repeatPassword");
-        if (checkUser != null) {
-            request.setAttribute("existsEmail", "Użytkownik o podanym adresie email już istnieje");
-            return "/register";
-        } else if (result.hasErrors()) {
-            return "/register";
-        } else if (!repeatPassword.equals(user.getPassword())) {
-            request.setAttribute("errorPassword", "Podane hasła nie są identyczne");
+    public String register(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
             return "/register";
         }
         userService.add(user);

@@ -39,7 +39,6 @@
                                 id="exampleInputEmail"
                                 placeholder="Email"/>
                     <form:errors path="email" class="alert-warning"/>
-                    <span class="alert-warning">${existsEmail}</span>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -52,7 +51,6 @@
                                id="exampleRepeatPassword" placeholder="<spring:message code="app.repeat_password"/>">
                     </div>
                 </div>
-                <span class="alert-warning">${errorPassword}</span>
                 <input type="submit" class="btn btn-primary btn-user btn-block"
                        value="<spring:message code="register.register"/>">
                 <hr>

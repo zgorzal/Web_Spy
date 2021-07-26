@@ -2,6 +2,7 @@ package pl.zgorzalek.web_spy.user;
 
 import lombok.Data;
 import pl.zgorzalek.web_spy.role.Role;
+import pl.zgorzalek.web_spy.validator.EmailExisting;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -29,6 +30,7 @@ public class User {
 
     @NotBlank
     @Email
+//    @EmailExisting
     @Size(max = 50)
     @Column(unique = true)
     private String email;
