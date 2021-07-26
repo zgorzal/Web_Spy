@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.zgorzalek.web_spy.role.Role;
 import pl.zgorzalek.web_spy.role.RoleRepository;
+import pl.zgorzalek.web_spy.user.DTO.UserRegisterDTO;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.UserRepository;
 
@@ -21,8 +22,12 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public void add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void add(UserRegisterDTO userRegisterDTO) {
+        User user = new User();
+        user.setFirstName(userRegisterDTO.getFirstName());
+        user.setLastName(userRegisterDTO.getLastName());
+        user.setEmail(userRegisterDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);

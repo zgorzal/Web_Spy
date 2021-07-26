@@ -21,7 +21,7 @@
             <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4"><spring:message code="app.create_account"/></h1>
             </div>
-            <form:form method="post" modelAttribute="user" class="user">
+            <form:form method="post" modelAttribute="userRegisterDTO" class="user">
                 <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         <form:input path="firstName" type="text" class="form-control form-control-user"
@@ -47,10 +47,11 @@
                         <form:errors path="password" class="alert-warning"/>
                     </div>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control form-control-user" name="repeatPassword"
-                               id="exampleRepeatPassword" placeholder="<spring:message code="app.repeat_password"/>">
+                        <form:input path="repeatPassword" type="password" class="form-control form-control-user"
+                                    id="exampleRepeatPassword" placeholder="Powtórz hasło"/>
                     </div>
                 </div>
+                <form:errors path="*" class="alert-warning"/>
                 <input type="submit" class="btn btn-primary btn-user btn-block"
                        value="<spring:message code="register.register"/>">
                 <hr>

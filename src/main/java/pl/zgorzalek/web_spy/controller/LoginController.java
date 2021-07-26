@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.zgorzalek.web_spy.user.User;
+import pl.zgorzalek.web_spy.user.DTO.UserRegisterDTO;
 import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,16 +29,16 @@ public class LoginController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userRegisterDTO", new UserRegisterDTO());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult result) {
+    public String register(@Valid UserRegisterDTO userRegisterDTO, BindingResult result) {
         if (result.hasErrors()) {
             return "/register";
         }
-        userService.add(user);
+        userService.add(userRegisterDTO);
         return "redirect:/login";
     }
 }

@@ -1,12 +1,11 @@
 package pl.zgorzalek.web_spy.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.zgorzalek.web_spy.role.Role;
-import pl.zgorzalek.web_spy.validator.EmailExisting;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -20,22 +19,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Size(min = 2, max = 30)
     private String firstName;
 
-    @NotBlank
     @Size(min = 2, max = 30)
     private String lastName;
 
-    @NotBlank
-    @Email
-//    @EmailExisting
     @Size(max = 50)
     @Column(unique = true)
     private String email;
 
-    @NotBlank
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
