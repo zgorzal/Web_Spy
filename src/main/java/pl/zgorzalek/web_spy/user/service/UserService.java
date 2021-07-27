@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.zgorzalek.web_spy.role.Role;
 import pl.zgorzalek.web_spy.role.RoleRepository;
 import pl.zgorzalek.web_spy.user.DTO.UserDataChangeDTO;
+import pl.zgorzalek.web_spy.user.DTO.UserPasswordChangeDTO;
 import pl.zgorzalek.web_spy.user.DTO.UserRegisterDTO;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.UserRepository;
@@ -58,8 +59,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updatePassword(User user, String password) {
-        user.setPassword(passwordEncoder.encode(password));
+    public void updatePassword(UserPasswordChangeDTO userPasswordChangeDTO) {
+        User user = userRepository.getById(userPasswordChangeDTO.getId());
+        user.setPassword(passwordEncoder.encode(userPasswordChangeDTO.getNewPassword()));
         userRepository.save(user);
     }
 }

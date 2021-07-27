@@ -8,8 +8,16 @@
 <div class="row">
     <div class="col-lg-5 mb-4">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><spring:message code="settings.change_data"/></h6>
+                <a href="/user/settings/password">
+                    <div class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-flag"></i>
+            </span>
+                        <span class="text">Zmiana hasła</span>
+                    </div>
+                </a>
             </div>
             <div class="card-body">
                 <form:form method="post" modelAttribute="userDataChangeDTO">
@@ -39,40 +47,6 @@
                     <div class="row-cols-1">
                         <input type="submit" class="btn btn-success text"
                                value="<spring:message code="settings.change_approves"/>">
-                    </div>
-                </form:form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><spring:message
-                        code="settings.change_password"/></h6>
-            </div>
-            <div class="card-body">
-                <form:form method="post" modelAttribute="user" action="/user/settings/password">
-                    <div class="row-cols-1">
-                        <label>
-                            <input type="password" name="oldPassword" class="form-control"
-                                   placeholder="Stare hasło">
-                        </label>
-                    </div>
-                    <div class="row-cols-1">
-                        <label>
-                            <input type="password" name="newPassword" class="form-control"
-                                   placeholder="Nowe hasło">
-                        </label>
-                    </div>
-                    <div class="row-cols-1">
-                        <label>
-                            <input type="password" name="repeatNewPassword" class="form-control"
-                                   placeholder="Powtórz nowe hasło">
-                        </label>
-                    </div>
-                    <div class="row-cols-1">
-                        <input type="submit" class="btn btn-warning text"
-                               value="<spring:message code="settings.change_password_approves"/>">
                     </div>
                 </form:form>
             </div>

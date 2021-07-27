@@ -25,7 +25,7 @@
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost:8080/">
+            <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span><spring:message code="dashboard.main_view"/></span></a>
         </li>
@@ -100,11 +100,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="../user/account">
+                            <a class="dropdown-item" href="/user/account">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 <spring:message code="dashboard.my_account"/>
                             </a>
-                            <a class="dropdown-item" href="../user/settings">
+                            <a class="dropdown-item" href="/user/settings">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 <spring:message code="dashboard.settings"/>
                             </a>
