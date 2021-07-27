@@ -12,7 +12,8 @@
                 <h6 class="m-0 font-weight-bold text-primary"><spring:message code="settings.change_data"/></h6>
             </div>
             <div class="card-body">
-                <form:form method="post" modelAttribute="user">
+                <form:form method="post" modelAttribute="userDataChangeDTO">
+                    <form:hidden path="id"/>
                     <div class="row-cols-1">
                         <label>
                             <form:input path="firstName" type="text" class="form-control"
@@ -34,6 +35,7 @@
                             <form:errors path="email" class="alert-warning"/>
                         </label>
                     </div>
+                    <form:errors path="*" class="alert-warning"/>
                     <div class="row-cols-1">
                         <input type="submit" class="btn btn-success text"
                                value="<spring:message code="settings.change_approves"/>">

@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.zgorzalek.web_spy.role.Role;
 import pl.zgorzalek.web_spy.role.RoleRepository;
+import pl.zgorzalek.web_spy.user.DTO.UserDataChangeDTO;
 import pl.zgorzalek.web_spy.user.DTO.UserRegisterDTO;
 import pl.zgorzalek.web_spy.user.User;
 import pl.zgorzalek.web_spy.user.UserRepository;
@@ -41,11 +42,19 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public void update(User user) {
+    public void update(UserDataChangeDTO userDataChangeDTO) {
+        User user = userRepository.getById(userDataChangeDTO.getId());
+        user.setFirstName(userDataChangeDTO.getFirstName());
+        user.setLastName(userDataChangeDTO.getLastName());
+        user.setEmail(userDataChangeDTO.getEmail());
         userRepository.save(user);
     }
 

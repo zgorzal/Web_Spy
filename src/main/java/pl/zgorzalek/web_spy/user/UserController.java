@@ -1,7 +1,10 @@
 package pl.zgorzalek.web_spy.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.zgorzalek.web_spy.app.SecurityConfig;
+import pl.zgorzalek.web_spy.user.DTO.UserDataChangeDTO;
+import pl.zgorzalek.web_spy.user.service.SpringDataUserDetailsService;
 import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +30,28 @@ public class UserController {
 
     @GetMapping("/settings")
     public String settings(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
-        model.addAttribute("user", currentUser.getUser());
+        UserDataChangeDTO userDataChangeDTO =
+                new UserDataChangeDTO(currentUser.getUser().getId(),
+                        currentUser.getUser().getFirstName(),
+                        currentUser.getUser().getLastName(),
+                        currentUser.getUser().getEmail());
+        model.addAttribute("userDataChangeDTO", userDataChangeDTO);
         return "app/settings";
     }
 
     @PostMapping("/settings")
-    public String settings(@Valid User user, BindingResult result) {
+    public String settings(@Valid UserDataChangeDTO userDataChangeDTO,
+                           BindingResult result,
+                           @AuthenticationPrincipal CurrentUser currentUser) {
         if (result.hasErrors()) {
             return "app/settings";
         }
-        userService.update(user);
+        userService.update(userDataChangeDTO);
+        currentUser.getUser().setFirstName(userDataChangeDTO.getFirstName());
+        currentUser.getUser().setLastName(userDataChangeDTO.getLastName());
+        currentUser.getUser().setEmail(userDataChangeDTO.getEmail());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return "redirect:/user/settings";
     }
 
