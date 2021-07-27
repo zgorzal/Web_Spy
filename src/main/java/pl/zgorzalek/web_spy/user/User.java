@@ -1,8 +1,6 @@
 package pl.zgorzalek.web_spy.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import pl.zgorzalek.web_spy.role.Role;
 
 import javax.persistence.*;
@@ -30,6 +28,10 @@ public class User {
     private String email;
 
     private String password;
+
+    private boolean enabled;
+
+    private String verificationCode;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
