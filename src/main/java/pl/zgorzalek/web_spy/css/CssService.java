@@ -21,7 +21,11 @@ public class CssService {
         return cssRepository.findFirstByName(name);
     }
 
-    public List<Css> findByPage(Page page){
+    public List<Css> findByPage(Page page) {
         return cssRepository.findAllByPage(page);
+    }
+
+    public void delete(Css css) {
+        cssRepository.delete(css);
     }
 }

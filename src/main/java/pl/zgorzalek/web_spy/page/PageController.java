@@ -27,6 +27,7 @@ public class PageController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("page", new Page());
+        model.addAttribute("title", "Dodaj stronę");
         return "app/addPage";
     }
 
@@ -97,5 +98,36 @@ public class PageController {
         model.addAttribute("title", "Raport");
         model.addAttribute("records", recordService.viewRecordSummary(downloadId));
         return "app/dataSummary";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editPage(@PathVariable Long id, Model model) {
+        Page page = pageService.findById(id);
+        model.addAttribute("page", page);
+        model.addAttribute("title", "Edytuj stronę");
+        return "app/addPage";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editPage(@Valid Page page, BindingResult result) {
+        if (result.hasErrors()) {
+            return "app/addPage";
+        }
+        pageService.add(page);
+        return "redirect:/page/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePage(@PathVariable Long id, Model model) {
+        Page page = pageService.findById(id);
+        model.addAttribute("page", page);
+        return "app/confirmDelete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deletePage(@PathVariable Long id) {
+        Page page = pageService.findById(id);
+        pageService.deletePage(page);
+        return "redirect:/page/list";
     }
 }

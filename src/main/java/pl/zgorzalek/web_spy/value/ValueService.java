@@ -20,4 +20,8 @@ public class ValueService {
     public List<Value> getAllByRecord(Record record) {
         return valueRepository.findAllByRecord(record);
     }
+
+    public void delete(Value value){
+        valueRepository.delete(value);
+    }
 }

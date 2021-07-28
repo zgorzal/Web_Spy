@@ -3,6 +3,7 @@ package pl.zgorzalek.web_spy.record;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import pl.zgorzalek.web_spy.css.Css;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     List<Integer> findDownloadIdByCss(Long css);
 
     Record findFirstByDownloadId(Integer downloadId);
+
+    List<Record> findAllByCss(Css css);
 }

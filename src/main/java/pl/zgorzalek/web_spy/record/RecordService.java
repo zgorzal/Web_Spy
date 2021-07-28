@@ -40,6 +40,14 @@ public class RecordService {
         return recordRepository.findLastDownloadId();
     }
 
+    public List<Record> getAllByCss(Css css){
+        return recordRepository.findAllByCss(css);
+    }
+
+    public void delete(Record record){
+        recordRepository.delete(record);
+    }
+
     public List<Record> getRecordSummary(Long pageId, String cssClass) {
         Page page = pageService.findById(pageId);
         pageService.add(page);

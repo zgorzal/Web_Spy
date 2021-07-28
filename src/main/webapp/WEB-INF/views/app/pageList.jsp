@@ -14,6 +14,10 @@
                 <tr role="row">
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                        style="width: 157px;">Akcje
+                    </th>
+                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
                         style="width: 157px;">id
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -35,6 +39,10 @@
                 </thead>
                 <c:forEach items="${pages}" var="page">
                     <tr class="odd">
+                        <td>
+                            <a href="/page/edit/${page.id}">Edytuj</a><br>
+                            <a href="/page/delete/${page.id}">Usuń</a>
+                        </td>
                         <td>${page.id}</td>
                         <td>${page.name}</td>
                         <td>${page.url}</td>

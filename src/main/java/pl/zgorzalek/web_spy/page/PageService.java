@@ -5,7 +5,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
+import pl.zgorzalek.web_spy.css.Css;
+import pl.zgorzalek.web_spy.css.CssService;
+import pl.zgorzalek.web_spy.record.Record;
+import pl.zgorzalek.web_spy.record.RecordService;
 import pl.zgorzalek.web_spy.user.User;
+import pl.zgorzalek.web_spy.value.Value;
+import pl.zgorzalek.web_spy.value.ValueService;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -32,6 +38,22 @@ public class PageService {
 
     public Page findById(Long id) {
         return pageRepository.findById(id).orElse(null);
+    }
+
+    public void deletePage(Page page) {
+//        List<Css> cssList = cssService.findByPage(page);
+//        for (Css css : cssList) {
+//            List<Record> records = recordService.getAllByCss(css);
+//            for (Record record : records){
+//                List<Value> values = valueService.getAllByRecord(record);
+//                for (Value value : values){
+//                    valueService.delete(value);
+//                }
+//                recordService.delete(record);
+//            }
+//            cssService.delete(css);
+//        }
+//        pageRepository.delete(page);
     }
 
     public Document createPageToView(Long pageId) {
