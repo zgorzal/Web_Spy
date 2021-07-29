@@ -2,6 +2,7 @@ package pl.zgorzalek.web_spy.page;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import pl.zgorzalek.web_spy.css.CssService;
 import pl.zgorzalek.web_spy.record.Record;
 import pl.zgorzalek.web_spy.record.RecordService;
 import pl.zgorzalek.web_spy.user.CurrentUser;
+import pl.zgorzalek.web_spy.user.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -24,6 +26,7 @@ public class PageController {
     private final PageService pageService;
     private final RecordService recordService;
     private final CssService cssService;
+    private final UserService userService;
 
     @GetMapping("/add")
     public String add(Model model) {
@@ -51,14 +54,24 @@ public class PageController {
     }
 
     @GetMapping("/{id}")
-    public String viewPage(@PathVariable Long id, Model model) {
-        model.addAttribute("page", pageService.createPageToView(id));
-        return "app/page";
+    public String viewPage(@PathVariable Long id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        Page page = pageService.findById(id);
+        if (page.getUser().getId().equals(currentUser.getUser().getId())) {
+            model.addAttribute("page", pageService.createPageToView(id));
+            return "app/page";
+        }
+        return "error";
     }
 
     @GetMapping("/{id}/{cssClass}")
-    public String viewDataSummary(@PathVariable Long id, @PathVariable String cssClass, Model model) {
+    public String viewDataSummary(@PathVariable Long id,
+                                  @PathVariable String cssClass,
+                                  Model model,
+                                  @AuthenticationPrincipal CurrentUser currentUser) {
         Page page = pageService.findById(id);
+        if (!page.getUser().getId().equals(currentUser.getUser().getId())) {
+            return "error";
+        }
         pageService.add(page);
         Css css = cssService.findByName(cssClass);
         if (css == null) {
@@ -90,9 +103,12 @@ public class PageController {
     }
 
     @GetMapping("/reports/{cssClass}")
-    public String viewReportsSummaryList(@PathVariable String cssClass, Model model) {
+    public String viewReportsSummaryList(@PathVariable String cssClass, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         model.addAttribute("cssClass", cssClass);
         Css css = cssService.findByName(cssClass);
+        if (!css.getPage().getUser().getId().equals(currentUser.getUser().getId())) {
+            return "error";
+        }
         List<Integer> downloadIdList = recordService.getDownloadIdByCssId(css.getId());
         List<Record> records = new ArrayList<>();
         for (Integer downloadId : downloadIdList) {
@@ -103,15 +119,22 @@ public class PageController {
     }
 
     @GetMapping("/report/{downloadId}")
-    public String viewReportSummary(@PathVariable int downloadId, Model model) {
+    public String viewReportSummary(@PathVariable int downloadId, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        Record record = recordService.getFirstByDownloadId(downloadId);
+        if (!record.getCss().getPage().getUser().getId().equals(currentUser.getUser().getId())) {
+            return "error";
+        }
         model.addAttribute("title", "Raport");
         model.addAttribute("records", recordService.viewRecordSummary(downloadId));
         return "app/dataSummary";
     }
 
     @GetMapping("/edit/{id}")
-    public String editPage(@PathVariable Long id, Model model) {
+    public String editPage(@PathVariable Long id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         Page page = pageService.findById(id);
+        if (!page.getUser().getId().equals(currentUser.getUser().getId())) {
+            return "error";
+        }
         model.addAttribute("page", page);
         model.addAttribute("title", "Edytuj stronę");
         return "app/addPage";
@@ -127,8 +150,11 @@ public class PageController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePage(@PathVariable Long id, Model model) {
+    public String deletePage(@PathVariable Long id, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         Page page = pageService.findById(id);
+        if (!page.getUser().getId().equals(currentUser.getUser().getId())) {
+            return "error";
+        }
         model.addAttribute("page", page);
         return "app/confirmDelete";
     }
@@ -141,12 +167,15 @@ public class PageController {
     }
 
     @GetMapping("/report/excel/{downloadId}")
-    public void exportToExcel(@PathVariable int downloadId, HttpServletResponse response) {
-        response.setContentType("application/octet-stream");
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachement; filename=Raport.xlsx";
-        response.setHeader(headerKey, headerValue);
-        recordService.exportToExcel(response, downloadId);
+    public void exportToExcel(@PathVariable int downloadId, HttpServletResponse response, @AuthenticationPrincipal CurrentUser currentUser) {
+        Record record = recordService.getFirstByDownloadId(downloadId);
+        if (record.getCss().getPage().getUser().getId().equals(currentUser.getUser().getId())) {
+            response.setContentType("application/octet-stream");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachement; filename=Raport.xlsx";
+            response.setHeader(headerKey, headerValue);
+            recordService.exportToExcel(response, downloadId);
+        }
     }
 
 }
