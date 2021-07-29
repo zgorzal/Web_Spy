@@ -13,7 +13,11 @@ public class EmailExistingChangeValidator implements ConstraintValidator<EmailEx
 
     @Override
     public boolean isValid(UserDataChangeDTO userDataChangeDTO, ConstraintValidatorContext constraintValidatorContext) {
-        return userService.findByEmail(userDataChangeDTO.getEmail()) == null ||
+        boolean isValid = userService.findByEmail(userDataChangeDTO.getEmail()) == null ||
                 userService.findById(userDataChangeDTO.getId()).getEmail().equals(userDataChangeDTO.getEmail());
+        if (!isValid) {
+            constraintValidatorContext.buildConstraintViolationWithTemplate("Użytkownik o podanym adresie email już istnieje").addPropertyNode("email").addConstraintViolation();
+        }
+        return isValid;
     }
 }

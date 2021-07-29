@@ -20,20 +20,23 @@
                             <form:input path="oldPassword" type="password" class="form-control"
                                         placeholder="Stare hasło"/>
                         </label>
+                        <form:errors path="oldPassword" class="alert-warning"/>
                     </div>
                     <div class="row-cols-1">
                         <label>
                             <form:input path="newPassword" type="password" class="form-control"
                                         placeholder="Nowe hasło"/>
                         </label>
+                        <form:errors path="newPassword" class="alert-warning"/>
                     </div>
                     <div class="row-cols-1">
                         <label>
                             <form:input path="repeatPassword" type="password" class="form-control"
                                         placeholder="Powtórz nowe hasło"/>
                         </label>
+                        <form:errors path="repeatPassword" class="alert-warning"/>
                     </div>
-                    <form:errors path="*" class="alert-warning"/>
+
                     <div class="row-cols-1">
                         <input type="submit" class="btn btn-warning text"
                                value="<spring:message code="settings.change_password_approves"/>">

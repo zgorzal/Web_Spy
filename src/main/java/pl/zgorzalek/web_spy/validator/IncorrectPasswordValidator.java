@@ -19,6 +19,10 @@ public class IncorrectPasswordValidator implements ConstraintValidator<Incorrect
     @Override
     public boolean isValid(UserPasswordChangeDTO userPasswordChangeDTO, ConstraintValidatorContext constraintValidatorContext) {
         User user = userService.findById(userPasswordChangeDTO.getId());
-        return passwordEncoder.matches(userPasswordChangeDTO.getOldPassword(), user.getPassword());
+        boolean isValid = passwordEncoder.matches(userPasswordChangeDTO.getOldPassword(), user.getPassword());
+        if (!isValid) {
+            constraintValidatorContext.buildConstraintViolationWithTemplate("Podano błędne hasło").addPropertyNode("oldPassword").addConstraintViolation();
+        }
+        return isValid;
     }
 }

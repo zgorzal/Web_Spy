@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CorrectRepeatPassword {
-    String message() default "{password.not-equals}";
+    String message() default "{password.not.equals}";
 
     Class<?>[] groups() default {};
 

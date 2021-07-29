@@ -49,9 +49,9 @@
                     <div class="col-sm-6">
                         <form:input path="repeatPassword" type="password" class="form-control form-control-user"
                                     id="exampleRepeatPassword" placeholder="Powtórz hasło"/>
+                        <form:errors path="repeatPassword" class="alert-warning"/>
                     </div>
                 </div>
-                <form:errors path="*" class="alert-warning"/>
                 <input type="submit" class="btn btn-primary btn-user btn-block"
                        value="<spring:message code="register.register"/>">
                 <hr>

@@ -43,7 +43,6 @@
                             <form:errors path="email" class="alert-warning"/>
                         </label>
                     </div>
-                    <form:errors path="*" class="alert-warning"/>
                     <div class="row-cols-1">
                         <input type="submit" class="btn btn-success text"
                                value="<spring:message code="settings.change_approves"/>">

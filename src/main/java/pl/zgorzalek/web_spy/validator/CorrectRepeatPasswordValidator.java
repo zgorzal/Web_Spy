@@ -9,6 +9,11 @@ public class CorrectRepeatPasswordValidator implements ConstraintValidator<Corre
 
     @Override
     public boolean isValid(UserRegisterDTO userRegisterDTO, ConstraintValidatorContext constraintValidatorContext) {
-        return userRegisterDTO.getPassword().equals(userRegisterDTO.getRepeatPassword());
+        boolean isValid = userRegisterDTO.getPassword().equals(userRegisterDTO.getRepeatPassword());
+        if(!isValid){
+            constraintValidatorContext.buildConstraintViolationWithTemplate("Podane hasła muszą być identyczne").addPropertyNode("repeatPassword").addConstraintViolation();
+        }
+        return isValid;
+
     }
 }

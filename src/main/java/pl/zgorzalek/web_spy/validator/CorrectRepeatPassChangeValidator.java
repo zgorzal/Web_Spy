@@ -9,6 +9,10 @@ public class CorrectRepeatPassChangeValidator implements ConstraintValidator<Cor
 
     @Override
     public boolean isValid(UserPasswordChangeDTO userPasswordChangeDTO, ConstraintValidatorContext constraintValidatorContext) {
-        return userPasswordChangeDTO.getNewPassword().equals(userPasswordChangeDTO.getRepeatPassword());
+        boolean isValid = userPasswordChangeDTO.getNewPassword().equals(userPasswordChangeDTO.getRepeatPassword());
+        if(!isValid){
+            constraintValidatorContext.buildConstraintViolationWithTemplate("Podane hasła muszą być identyczne").addPropertyNode("newPassword").addConstraintViolation();
+        }
+        return isValid;
     }
 }
