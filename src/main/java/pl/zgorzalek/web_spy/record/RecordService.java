@@ -43,7 +43,7 @@ public class RecordService {
     }
 
     public int getLastDownloadId() {
-        return recordRepository.findLastDownloadId();
+        return recordRepository.findLastDownloadId().orElse(0);
     }
 
     public List<Record> getAllByCss(Css css) {
