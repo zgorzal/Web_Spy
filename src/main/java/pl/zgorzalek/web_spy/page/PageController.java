@@ -59,8 +59,16 @@ public class PageController {
     @GetMapping("/{id}/{cssClass}")
     public String viewDataSummary(@PathVariable Long id, @PathVariable String cssClass, Model model) {
         Page page = pageService.findById(id);
+        pageService.add(page);
+        Css css = cssService.findByName(cssClass);
+        if (css == null) {
+            css = new Css();
+        }
+        css.setName(cssClass);
+        css.setPage(page);
+        cssService.add(css);
         model.addAttribute("title", page.getName());
-        model.addAttribute("records", recordService.getRecordSummary(id, cssClass));
+        model.addAttribute("records", recordService.getRecordSummary(page, css));
         return "app/dataSummary";
     }
 

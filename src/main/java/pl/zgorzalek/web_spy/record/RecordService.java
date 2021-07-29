@@ -10,9 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 import pl.zgorzalek.web_spy.css.Css;
-import pl.zgorzalek.web_spy.css.CssService;
 import pl.zgorzalek.web_spy.page.Page;
-import pl.zgorzalek.web_spy.page.PageService;
 import pl.zgorzalek.web_spy.value.Value;
 import pl.zgorzalek.web_spy.value.ValueService;
 
@@ -29,8 +27,6 @@ import java.util.List;
 @Transactional
 public class RecordService {
     private final RecordRepository recordRepository;
-    private final CssService cssService;
-    private final PageService pageService;
     private final ValueService valueService;
 
     public void add(Record record) {
@@ -51,24 +47,19 @@ public class RecordService {
     }
 
     public void delete(Record record) {
+        List<Value> valueList = valueService.getAllByRecord(record);
+        for (Value value : valueList) {
+            valueService.delete(value);
+        }
         recordRepository.delete(record);
     }
 
-    public List<Record> getRecordSummary(Long pageId, String cssClass) {
-        Page page = pageService.findById(pageId);
-        pageService.add(page);
-        Css css = cssService.findByName(cssClass);
-        if (css == null) {
-            css = new Css();
-        }
+    public List<Record> getRecordSummary(Page page, Css css) {
         int downloadId = getLastDownloadId() + 1;
-        css.setName(cssClass);
-        css.setPage(page);
-        cssService.add(css);
         try {
             Document document = Jsoup.connect(page.getUrl()).get();
             Element body = document.body();
-            List<Element> parentElements = body.getElementsByClass(cssClass);
+            List<Element> parentElements = body.getElementsByClass(css.getName());
             Element child = parentElements.get(0);
             List<Element> elementsToCheck = child.getAllElements();
             List<String> cssCollect = new ArrayList<>();
