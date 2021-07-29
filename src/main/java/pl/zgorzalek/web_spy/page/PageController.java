@@ -12,6 +12,7 @@ import pl.zgorzalek.web_spy.record.Record;
 import pl.zgorzalek.web_spy.record.RecordService;
 import pl.zgorzalek.web_spy.user.CurrentUser;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -130,4 +131,14 @@ public class PageController {
         pageService.deletePage(page);
         return "redirect:/page/list";
     }
+
+    @GetMapping("/report/excel/{downloadId}")
+    public void exportToExcel(@PathVariable int downloadId, HttpServletResponse response) {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Raport.xlsx";
+        response.setHeader(headerKey, headerValue);
+        recordService.exportToExcel(response, downloadId);
+    }
+
 }

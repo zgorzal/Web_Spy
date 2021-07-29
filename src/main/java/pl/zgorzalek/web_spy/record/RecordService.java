@@ -1,6 +1,10 @@
 package pl.zgorzalek.web_spy.record;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,6 +16,8 @@ import pl.zgorzalek.web_spy.page.PageService;
 import pl.zgorzalek.web_spy.value.Value;
 import pl.zgorzalek.web_spy.value.ValueService;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -40,11 +46,11 @@ public class RecordService {
         return recordRepository.findLastDownloadId();
     }
 
-    public List<Record> getAllByCss(Css css){
+    public List<Record> getAllByCss(Css css) {
         return recordRepository.findAllByCss(css);
     }
 
-    public void delete(Record record){
+    public void delete(Record record) {
         recordRepository.delete(record);
     }
 
@@ -106,11 +112,37 @@ public class RecordService {
         return recordRepository.findFirstByDownloadId(downloadId);
     }
 
-    public List<Record> viewRecordSummary(int downloadId){
+    public List<Record> viewRecordSummary(int downloadId) {
         List<Record> records = getAllByDownloadId(downloadId);
         for (Record record : records) {
             record.setValues(valueService.getAllByRecord(record));
         }
         return records;
     }
+
+    public void exportToExcel(HttpServletResponse response, int downloadId) {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Dane");
+            int countRow = 0;
+            List<Record> records = viewRecordSummary(downloadId);
+            for (Record record : records) {
+                Row row = sheet.createRow(countRow);
+                int countCell = 0;
+                for (Value value : record.getValues()) {
+                    Cell cell = row.createCell(countCell);
+                    cell.setCellValue(value.getValue());
+                    countCell++;
+                }
+                countRow++;
+            }
+            ServletOutputStream outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

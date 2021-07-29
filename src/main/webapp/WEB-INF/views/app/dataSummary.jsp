@@ -4,6 +4,12 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">${title}</h6>
+        <a href="/page/report/excel/${records[0].downloadId}" class="btn btn-secondary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+            <span class="text">Pobierz do Excel</span>
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
