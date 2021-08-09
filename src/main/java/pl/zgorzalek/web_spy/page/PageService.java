@@ -67,9 +67,8 @@ public class PageService {
             pageMaps.entrySet().stream()
                     .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                     .filter(a -> a.getValue() > 1)
-                    .forEach(a -> sb.append("<a href=\"#\" class=\" cssWebSpy btn btn-light btn-icon-split\">\n" +
-                            "                                        <span class=\"text\">" + a.getKey() + "</span>\n" +
-                            "                                    </a>"));
+                    .forEach(a -> sb.append("<a href=\"#confirmWebSpy\" class=\" cssWebSpy\">\n" + a.getKey() +"</a><br>"));
+
             body.before("<link href=\"../../../theme/vendor/fontawesome-free/css/all.min.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
                     "<link href=\"../../../theme/css/sb-admin-2.min.css\" rel=\"stylesheet\">\n" +
                     "<div class=\"card shadow mb-4\">\n" +
@@ -78,7 +77,7 @@ public class PageService {
                     "    </a>\n" +
                     "    <div class=\"collapse\" id=\"collapseCardExample\" style=\"\">\n" +
                     "        <div class=\"card-body\">\n" +
-                    "           <div class=\"row\">\n" +
+                    "           <div>\n" +
                     "               " + sb.toString() + "\n" +
                     "           </div>\n" +
                     "<a href=\"/page\" class=\"btn btn-warning btn-icon-split\">\n" +
