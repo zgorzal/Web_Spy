@@ -40,9 +40,9 @@
                             code="login.login"/></button>
                     <hr>
                 </form>
-                <div class="text-center">
-                    <a class="small" href="#"><spring:message code="app.forgot_password"/></a>
-                </div>
+                <%--                <div class="text-center">--%>
+                <%--                    <a class="small" href="#"><spring:message code="app.forgot_password"/></a>--%>
+                <%--                </div>--%>
                 <div class="text-center">
                     <a class="small" href="../register"><spring:message code="app.create_account"/></a>
                 </div>

@@ -21,7 +21,7 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="p-5">
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Twoję konto zostało potwierdzone i aktywowane!</h1>
+                    <h1 class="h4 text-gray-900 mb-4"><spring:message code="email.verify_success"/></h1>
                 </div>
             </div>
         </div>

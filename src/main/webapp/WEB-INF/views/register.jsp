@@ -56,9 +56,9 @@
                        value="<spring:message code="register.register"/>">
                 <hr>
             </form:form>
-            <div class="text-center">
-                <a class="small" href="#"><spring:message code="app.forgot_password"/></a>
-            </div>
+            <%--            <div class="text-center">--%>
+            <%--                <a class="small" href="#"><spring:message code="app.forgot_password"/></a>--%>
+            <%--            </div>--%>
             <div class="text-center">
                 <a class="small" href="../login"><spring:message code="register.have_an_account"/></a>
             </div>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/views/includes/header.jsp"/>
 <div class="card shadow mb-4">
@@ -8,7 +9,7 @@
             <span class="icon text-white-50">
                 <i class="fas fa-arrow-right"></i>
             </span>
-            <span class="text">Pobierz do Excel</span>
+            <span class="text"><spring:message code="download_excel"/></span>
         </a>
     </div>
     <div class="card-body">

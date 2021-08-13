@@ -15,7 +15,7 @@
             <span class="icon text-white-50">
                 <i class="fas fa-flag"></i>
             </span>
-                        <span class="text">Zmiana hasła</span>
+                        <span class="text"><spring:message code="password.change"/></span>
                     </div>
                 </a>
             </div>
