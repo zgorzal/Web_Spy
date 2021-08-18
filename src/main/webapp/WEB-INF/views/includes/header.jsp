@@ -69,6 +69,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><spring:message code="dashboard.action"/></h6>
                         <a class="collapse-item" href="/user/list"> <spring:message code="dashboard.users_list"/></a>
+                        <a class="collapse-item" href="/logs"> <spring:message code="dashboard.check_logs"/></a>
                     </div>
                 </div>
             </li>
