@@ -1,6 +1,7 @@
 package pl.zgorzalek.web_spy.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -26,13 +28,16 @@ public class LoginController {
         Map<String, String[]> param = request.getParameterMap();
         if (param.containsKey("error")) {
             request.setAttribute("errorInput", "Błędny email lub hasło");
+            log.info("error login");
         }
+        log.info("login");
         return "login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("userRegisterDTO", new UserRegisterDTO());
+        log.info("register");
         return "register";
     }
 
@@ -42,9 +47,11 @@ public class LoginController {
                            HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
         if (result.hasErrors()) {
+            log.info(result.toString());
             return "/register";
         }
         userService.add(userRegisterDTO, getSiteURL(request));
+        log.info("Register user: " + userRegisterDTO.getFirstName());
         return "registerConfirm";
     }
 
