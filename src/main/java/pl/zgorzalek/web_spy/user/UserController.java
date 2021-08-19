@@ -1,6 +1,7 @@
 package pl.zgorzalek.web_spy.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -74,6 +75,7 @@ public class UserController {
         return "app/account";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/list")
     public String userList(Model model) {
         List<User> users = userService.findAll();
